@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Website Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="text-align:center; font-family:Arial;">
+
+  <h2>AI Website Builder</h2>
+  <textarea id="prompt" placeholder="Write your website idea..." style="width:90%; height:120px;"></textarea>
+  <br><br>
+  <button onclick="generate()" style="padding:10px 20px; background:black; color:white;">Generate</button>
+
+  <h3>Preview:</h3>
+  <iframe id="preview" style="width:90%; height:400px;"></iframe>
+
+  <script>
+    async function generate() {
+      const prompt = document.getElementById("prompt").value;
+      const backendURL = "https://ai-website-builder-asfc.vercel.app/";
+
+      const response = await fetch(backendURL, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await response.json();
+      document.getElementById("preview").srcdoc = data.html;
+    }
+  </script>
+
+</body>
+</html>
